@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nkemdi Patrick Onwordi | Digital Product Manager</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background:#0f172a;
+    color:#e2e8f0;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+  }
+  /* Background */
+  .bg-wrap { position:fixed; inset:0; z-index:-1; background:linear-gradient(135deg,#0f172a,#1e3a5f,#0f172a); overflow:hidden; }
+  .orb { position:absolute; border-radius:50%; filter:blur(80px); opacity:.25; animation:pulse 6s ease-in-out infinite; }
+  .orb1 { width:400px; height:400px; background:radial-gradient(circle,#06b6d4,#2563eb); top:-50px; left:10%; }
+  .orb2 { width:500px; height:500px; background:radial-gradient(circle,#3b82f6,#7c3aed); top:30%; right:5%; animation-delay:2s; }
+  .orb3 { width:450px; height:450px; background:radial-gradient(circle,#10b981,#06b6d4); bottom:-100px; left:25%; animation-delay:4s; }
+  @keyframes pulse { 0%,100%{transform:scale(1);opacity:.2;} 50%{transform:scale(1.15);opacity:.35;} }
+  .grid-overlay { position:absolute; inset:0; opacity:.15;
+    background-image:linear-gradient(rgba(6,182,212,.15) 1px,transparent 1px),linear-gradient(90deg,rgba(6,182,212,.15) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .particle { position:absolute; width:3px; height:3px; background:#22d3ee; border-radius:50%; opacity:.5; animation:float 8s ease-in-out infinite; }
+  @keyframes float { 0%,100%{transform:translateY(0);opacity:0;} 50%{transform:translateY(-80px);opacity:1;} }
+
+  /* Header */
+  header { position:sticky; top:0; z-index:50; background:rgba(15,23,42,.85); backdrop-filter:blur(16px); border-bottom:1px solid rgba(6,182,212,.2); }
+  .header-inner { max-width:1100px; margin:0 auto; padding:16px 24px; }
+  .brand { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+  .brand-dot { width:34px; height:34px; border-radius:8px; background:linear-gradient(135deg,#22d3ee,#3b82f6); display:flex; align-items:center; justify-content:center; font-weight:800; }
+  .brand h1 { font-size:1.5rem; background:linear-gradient(90deg,#22d3ee,#3b82f6,#10b981); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  nav { display:flex; gap:8px; flex-wrap:wrap; }
+  nav button { background:transparent; border:none; color:#94a3b8; padding:9px 16px; border-radius:8px; font-size:.92rem; font-weight:600; cursor:pointer; transition:.2s; display:flex; align-items:center; gap:6px; }
+  nav button:hover { background:rgba(51,65,85,.5); color:#fff; }
+  nav button.active { background:linear-gradient(90deg,#0891b2,#2563eb); color:#fff; box-shadow:0 4px 14px rgba(6,182,212,.4); }
+
+  /* Clock bar */
+  .clockbar { background:rgba(15,23,42,.9); border-bottom:1px solid rgba(6,182,212,.15); padding:10px 24px; position:sticky; top:96px; z-index:40; backdrop-filter:blur(10px); }
+  .clockbar-inner { max-width:1100px; margin:0 auto; display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
+  .clock-item { display:flex; align-items:center; gap:10px; background:rgba(30,41,59,.6); padding:8px 16px; border-radius:10px; }
+  .clock-item .label { font-size:.7rem; color:#94a3b8; }
+  .clock-item .time { font-family:'Courier New',monospace; font-size:1.15rem; font-weight:700; }
+  .clock-item.uk .time { color:#22d3ee; }
+  .clock-item.ng .time { color:#34d399; }
+
+  main { max-width:1100px; margin:0 auto; padding:36px 24px; min-height:60vh; }
+  .tab-section { display:none; animation:fadein .3s ease; }
+  .tab-section.active { display:block; }
+  @keyframes fadein { from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
+
+  h2.section-title { font-size:1.9rem; font-weight:800; margin-bottom:22px; color:#fff; }
+
+  /* Cards */
+  .card { background:rgba(30,41,59,.55); border:1px solid rgba(71,85,105,.4); border-radius:14px; padding:24px; backdrop-filter:blur(8px); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:20px; }
+  .post-card, .gallery-card { background:rgba(30,41,59,.55); border:1px solid rgba(71,85,105,.4); border-radius:14px; overflow:hidden; transition:.25s; cursor:pointer; }
+  .post-card:hover, .gallery-card:hover { border-color:rgba(34,211,238,.5); transform:translateY(-3px); box-shadow:0 10px 30px rgba(6,182,212,.15); }
+  .post-card .pad, .gallery-card .pad { padding:20px; }
+  .tag { display:inline-block; background:rgba(34,211,238,.15); color:#67e8f9; border:1px solid rgba(34,211,238,.3); padding:4px 12px; border-radius:20px; font-size:.72rem; font-weight:600; margin-bottom:10px; }
+  .post-card h3 { font-size:1.15rem; margin-bottom:8px; color:#fff; }
+  .post-card p, .gallery-card p { color:#94a3b8; font-size:.9rem; line-height:1.5; }
+  .gallery-card img { width:100%; height:190px; object-fit:cover; display:block; }
+  .gallery-card h3 { padding:14px 16px 4px; font-size:1.05rem; color:#fff; }
+  .gallery-card p { padding:0 16px 16px; }
+
+  /* Bio */
+  .bio-name { font-size:1.7rem; font-weight:700; color:#fff; }
+  .bio-title { color:#22d3ee; font-weight:600; margin:6px 0 18px; }
+  .bio-text p { color:#cbd5e1; line-height:1.75; margin-bottom:14px; }
+
+  /* Contact */
+  .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  @media (max-width:800px){ .contact-grid{grid-template-columns:1fr;} .contact-grid iframe{height:300px;} }
+  .contact-row { display:flex; gap:14px; align-items:flex-start; margin-bottom:20px; }
+  .contact-row svg { flex-shrink:0; margin-top:2px; }
+  .contact-row a, .contact-row span { color:#cbd5e1; text-decoration:none; }
+  .contact-row a:hover { color:#22d3ee; }
+  .social-links { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .social-links a { display:flex; align-items:center; gap:8px; background:rgba(51,65,85,.6); padding:9px 16px; border-radius:8px; color:#e2e8f0; text-decoration:none; font-size:.88rem; font-weight:600; transition:.2s; }
+  .social-links a:hover { background:rgba(8,145,178,.4); }
+  iframe.map { width:100%; height:100%; min-height:340px; border:0; border-radius:10px; }
+
+  /* Events */
+  .event-card { display:flex; gap:16px; padding:18px; margin-bottom:14px; }
+  .event-date-box { background:linear-gradient(135deg,rgba(6,182,212,.15),rgba(37,99,235,.15)); border-radius:10px; padding:12px 18px; text-align:center; min-width:70px; }
+  .event-date-box .day { font-size:1.6rem; font-weight:800; color:#22d3ee; }
+  .event-date-box .mon { font-size:.8rem; color:#94a3b8; }
+  .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-top:16px; }
+  .cal-day-label { text-align:center; font-size:.75rem; font-weight:700; color:#94a3b8; padding:6px 0; }
+  .cal-cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:8px; font-size:.85rem; background:rgba(51,65,85,.3); color:#cbd5e1; }
+  .cal-cell.today { background:linear-gradient(135deg,#0891b2,#2563eb); color:#fff; font-weight:800; }
+  .cal-cell.event { background:rgba(16,185,129,.25); color:#6ee7b7; font-weight:700; }
+
+  /* Footer */
+  footer { margin-top:60px; background:linear-gradient(90deg,#0f172a,#1e293b,#0f172a); border-top:2px solid; border-image:linear-gradient(90deg,#22d3ee,#3b82f6,#10b981) 1; }
+  .footer-inner { max-width:1100px; margin:0 auto; padding:44px 24px 24px; }
+  .footer-grid { display:grid; grid-template-columns:1.2fr 1fr 1.2fr; gap:32px; margin-bottom:32px; }
+  @media (max-width:750px){ .footer-grid{grid-template-columns:1fr;} }
+  .footer-grid h3 { color:#fff; font-size:1.05rem; margin-bottom:14px; }
+  .footer-grid p { color:#94a3b8; font-size:.88rem; line-height:1.6; }
+  .footer-links { list-style:none; }
+  .footer-links li { margin-bottom:8px; }
+  .footer-links button { background:none; border:none; color:#94a3b8; cursor:pointer; font-size:.88rem; padding:0; }
+  .footer-links button:hover { color:#22d3ee; }
+  .footer-contact a { display:flex; align-items:center; gap:8px; color:#94a3b8; text-decoration:none; font-size:.88rem; margin-bottom:10px; }
+  .footer-contact a:hover { color:#22d3ee; }
+  .footer-bottom { border-top:1px solid rgba(71,85,105,.4); padding-top:22px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; color:#94a3b8; font-size:.85rem; }
+
+  .icon { width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2; }
+</style>
+</head>
+<body>
+
+<div class="bg-wrap">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="grid-overlay"></div>
+  <div id="particles"></div>
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-dot">📘</div>
+      <h1>Nkemdi Onwordi</h1>
+    </div>
+    <nav id="tabNav"></nav>
+  </div>
+</header>
+
+<div class="clockbar">
+  <div class="clockbar-inner">
+    <div class="clock-item uk">
+      <div>
+        <div class="label">🇬🇧 United Kingdom (BST/GMT)</div>
+        <div class="time" id="ukTime">--:--:--</div>
+      </div>
+    </div>
+    <div class="clock-item ng">
+      <div>
+        <div class="label">🇳🇬 Nigeria (WAT)</div>
+        <div class="time" id="ngTime">--:--:--</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <!-- HOME -->
+  <section class="tab-section" id="tab-home">
+    <h2 class="section-title">Latest Ideas</h2>
+    <div class="grid" id="postsGrid"></div>
+  </section>
+
+  <!-- MEET ME -->
+  <section class="tab-section" id="tab-meet">
+    <h2 class="section-title">About Me</h2>
+    <div class="card">
+      <div class="bio-name">Nkemdi Patrick Onwordi</div>
+      <div class="bio-title">Digital Product Manager & Senior Product/Solution Owner</div>
+      <div class="bio-text">
+        <p>Nkemdi Patrick Onwordi is a seasoned Digital Product Manager and Senior Product/Solution Owner with over a decade of experience delivering high-impact technology solutions across ICT, energy, and public-sector environments. With an M.Sc in Electrical Engineering and advanced Agile certifications (PSPO, SAFe 6.0 PO/PM, CSPO), he blends technical expertise with strategic product leadership and user-centred design.</p>
+        <p>At OFGEM, Nkemdi leads the delivery of user-focused digital services, driving API integrations, data-driven decision-making, risk assessment, and stakeholder engagement within complex regulatory landscapes. His career spans connectivity, software development, Wi-Fi, and IT advisory, shaped significantly by hands-on roles at Level 4 IT Solutions and ipNX Nigeria Limited, where he built strong foundations in technical service delivery, customer satisfaction, and operational excellence.</p>
+        <p>Nkemdi is also deeply passionate about youth development. His work with young people centres on career guidance, mentorship, coaching, and offering practical support that empowers them to thrive and reach their full potential.</p>
+        <p>A thoughtful writer and product innovator, he explores themes of kindness, equity, dignity of labour, and societal growth. He is currently developing several digital products—including a ride-and-share marketplace and intelligent field-data collection tools—designed for real-world impact, security, and long-term scalability.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="tab-section" id="tab-gallery">
+    <h2 class="section-title">Gallery & Events</h2>
+    <div class="grid" id="galleryGrid"></div>
+  </section>
+
+  <!-- UPCOMING EVENTS -->
+  <section class="tab-section" id="tab-events">
+    <h2 class="section-title">Upcoming Events</h2>
+    <div id="eventsList"></div>
+    <div class="card" style="margin-top:24px;">
+      <h3 style="color:#fff; font-size:1.3rem; margin-bottom:6px;">Calendar Overview</h3>
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="tab-section" id="tab-contact">
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="contact-grid">
+      <div class="card">
+        <div class="contact-row">
+          <svg class="icon" style="color:#22d3ee" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>
+          <div><strong style="color:#fff;">Email</strong><br><a href="mailto:onwordi.nkemdi@gmail.com">onwordi.nkemdi@gmail.com</a></div>
+        </div>
+        <div class="contact-row">
+          <svg class="icon" style="color:#22d3ee" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div><strong style="color:#fff;">Phone</strong><br><a href="tel:07901032385">07901032385</a></div>
+        </div>
+        <div class="contact-row">
+          <svg class="icon" style="color:#22d3ee" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div><strong style="color:#fff;">Location</strong><br><span>Middlesbrough, United Kingdom</span></div>
+        </div>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/nkemdi-onwordi-7a095329" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/omosuyi/onwordi.github.io" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+      <div class="card" style="padding:12px;">
+        <iframe class="map" src="https://www.openstreetmap.org/export/embed.html?bbox=-1.2650%2C54.5542%2C-1.2050%2C54.5942&layer=mapnik&marker=54.5742%2C-1.2350"></iframe>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <h3>📘 Onwordi</h3>
+        <p>Empowering innovation through technology, energy, and charitable initiatives for a better tomorrow.</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><button onclick="showTab('home')">Home</button></li>
+          <li><button onclick="showTab('meet')">Meet Me</button></li>
+          <li><button onclick="showTab('gallery')">Gallery & Events</button></li>
+          <li><button onclick="showTab('events')">Upcoming Events</button></li>
+          <li><button onclick="showTab('contact')">Contact</button></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Get In Touch</h3>
+        <div class="footer-contact">
+          <a href="mailto:onwordi.nkemdi@gmail.com">✉ onwordi.nkemdi@gmail.com</a>
+          <a href="tel:07901032385">☎ 07901032385</a>
+          <a href="#" onclick="return false;">📍 Middlesbrough, United Kingdom</a>
+        </div>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/nkemdi-onwordi-7a095329" target="_blank" rel="noopener">in</a>
+          <a href="https://github.com/omosuyi/onwordi.github.io" target="_blank" rel="noopener">GH</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Onwordi. All rights reserved.</span>
+      <span>Paid for by Onwordi Nkemdi Patrick</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Particles
+  const pWrap = document.getElementById('particles');
+  for (let i=0;i<25;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    p.style.top=Math.random()*100+'%';
+    p.style.left=Math.random()*100+'%';
+    p.style.animationDelay=(Math.random()*6)+'s';
+    p.style.animationDuration=(6+Math.random()*8)+'s';
+    pWrap.appendChild(p);
+  }
+
+  // Tabs
+  const tabs = [
+    {id:'home', label:'Home'},
+    {id:'meet', label:'Meet Me'},
+    {id:'gallery', label:'Gallery & Events'},
+    {id:'events', label:'Upcoming Events'},
+    {id:'contact', label:'Contact'}
+  ];
+  const nav = document.getElementById('tabNav');
+  tabs.forEach(t=>{
+    const btn=document.createElement('button');
+    btn.textContent=t.label;
+    btn.id='navbtn-'+t.id;
+    btn.onclick=()=>showTab(t.id);
+    nav.appendChild(btn);
+  });
+  function showTab(id){
+    document.querySelectorAll('.tab-section').forEach(s=>s.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+    document.getElementById('tab-'+id).classList.add('active');
+    document.getElementById('navbtn-'+id).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  showTab('home');
+
+  // Clocks
+  function pad(n){return n.toString().padStart(2,'0');}
+  function updateClocks(){
+    const now = new Date();
+    document.getElementById('ukTime').textContent = now.toLocaleTimeString('en-GB',{timeZone:'Europe/London',hour12:false});
+    document.getElementById('ngTime').textContent = now.toLocaleTimeString('en-GB',{timeZone:'Africa/Lagos',hour12:false});
+  }
+  updateClocks();
+  setInterval(updateClocks,1000);
+
+  // Posts
+  const posts = [
+    {
+      title:'Learning the Fundamentals of Product Management',
+      category:'Product Management',
+      date:'2026-08-31',
+      content:`Learning the fundamentals of product management as a beginner transformed the way I approach problem-solving and value creation. My experience went beyond frameworks and terminology; it reshaped how I listen to users, define problems, and make decisions. I learned that product management is not about having all the answers, but about asking the right questions—understanding user pain points, aligning stakeholders, and balancing feasibility with impact.
+
+Concepts such as product vision, user journeys, prioritisation, and iterative delivery became real when applied to live scenarios rather than abstract case studies. I also discovered the importance of communication—translating technical constraints into business language and user needs into actionable requirements.
+
+Most importantly, the fundamentals taught me humility: products succeed through collaboration, continuous learning, and feedback, not individual brilliance. As a beginner, this foundation gave me clarity, confidence, and a user-centred mindset that continues to shape how I build, improve, and deliver meaningful products.`
+    }
+  ];
+  const postsGrid = document.getElementById('postsGrid');
+  posts.forEach(p=>{
+    const el=document.createElement('div');
+    el.className='post-card';
+    el.innerHTML=`<div class="pad">
+      <span class="tag">${p.category}</span>
+      <h3>${p.title}</h3>
+      <p>${p.content.split('\n')[0].slice(0,140)}...</p>
+      <p style="margin-top:10px;font-size:.75rem;color:#64748b;">${p.date}</p>
+    </div>`;
+    el.onclick=()=>alert(p.title+'\n\n'+p.content);
+    postsGrid.appendChild(el);
+  });
+
+  // Gallery
+  const gallery = [
+    {title:'Team Collaboration', desc:'Working together with colleagues on innovative solutions', img:'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800'},
+    {title:'Professional Networking', desc:'Building connections and sharing knowledge with team members', img:'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800'},
+    {title:'Office Team Meeting', desc:'Collaborative discussions driving project success', img:'https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800'},
+    {title:'Department Team Photo', desc:'Celebrating teamwork and shared achievements', img:'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800'},
+    {title:'Strategy Planning', desc:'Planning sessions for upcoming initiatives and projects', img:'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800'},
+    {title:'Innovation Workshop', desc:'Engaging in creative problem-solving and brainstorming', img:'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800'},
+    {title:'Product Development', desc:'Hands-on collaboration on product features and solutions', img:'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800'},
+    {title:'Team Success', desc:'Celebrating milestones and achievements together', img:'https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=800'}
+  ];
+  const galleryGrid = document.getElementById('galleryGrid');
+  gallery.forEach(g=>{
+    const el=document.createElement('div');
+    el.className='gallery-card';
+    el.innerHTML=`<img src="${g.img}" alt="${g.title}"><h3>${g.title}</h3><p>${g.desc}</p>`;
+    galleryGrid.appendChild(el);
+  });
+
+  // Events (empty by default — add objects like {title,date:'YYYY-MM-DD',time:'HH:MM',desc:''})
+  const events = [];
+  const eventsList = document.getElementById('eventsList');
+  if(events.length===0){
+    eventsList.innerHTML = '<div class="card" style="text-align:center;padding:50px;"><p style="color:#94a3b8;">No upcoming events yet. Edit the "events" array in the code to add some.</p></div>';
+  } else {
+    events.sort((a,b)=>new Date(a.date)-new Date(b.date)).forEach(ev=>{
+      const d=new Date(ev.date);
+      const el=document.createElement('div');
+      el.className='card event-card';
+      el.innerHTML=`<div class="event-date-box"><div class="day">${d.getDate()}</div><div class="mon">${d.toLocaleString('en-US',{month:'short'})}</div></div>
+        <div><h3 style="color:#fff;margin-bottom:6px;">${ev.title}</h3><p style="color:#94a3b8;font-size:.85rem;margin-bottom:6px;">🕐 ${ev.time}</p><p style="color:#94a3b8;">${ev.desc}</p></div>`;
+      eventsList.appendChild(el);
+    });
+  }
+
+  // Calendar
+  const calGrid = document.getElementById('calGrid');
+  const now = new Date();
+  ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d=>{
+    const el=document.createElement('div'); el.className='cal-day-label'; el.textContent=d; calGrid.appendChild(el);
+  });
+  const firstDay = new Date(now.getFullYear(), now.getMonth(), 1).getDay();
+  const daysInMonth = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+  for(let i=0;i<firstDay;i++){ const e=document.createElement('div'); calGrid.appendChild(e); }
+  for(let day=1; day<=daysInMonth; day++){
+    const el=document.createElement('div');
+    el.className='cal-cell';
+    const dateStr = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(day)}`;
+    if(day===now.getDate()) el.classList.add('today');
+    else if(events.some(e=>e.date===dateStr)) el.classList.add('event');
+    el.textContent=day;
+    calGrid.appendChild(el);
+  }
+</script>
+</body>
+</html>
